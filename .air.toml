@@ -1,0 +1,10 @@
+# .air.toml
+[build]
+cmd = "go build -o ./tmp/main ."
+bin = "./tmp/main"
+watch_dir = "./"
+include_ext = ["go"]
+exclude_dir = ["tmp", "vendor", "node_modules", ".git", "docs"]
+exclude_file = []
+debug = false
+log = "air.log"

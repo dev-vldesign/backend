@@ -1,0 +1,8 @@
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: api-vldesign-certificate
+  namespace: staging
+spec:
+  domains:
+    - api.vldesign.site

@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vl-design-backend
+  namespace: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vl-design-backend
+  template:
+    metadata:
+      labels:
+        app: vl-design-backend
+    spec:
+      containers:
+        - name: vl-design-backend
+          image: vldesignaus/vl-design-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: MONGODB_URI
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: JWT_SECRET
+            - name: GOOGLE_API_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: GOOGLE_API_CLIENT_ID
+            - name: GOOGLE_API_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: GOOGLE_API_CLIENT_SECRET
+            - name: GOOGLE_API_REDIRECT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: GOOGLE_API_REDIRECT_URL
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: SMTP_PASSWORD
+            - name: SMTP_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: SMTP_EMAIL
+            - name: GOOGLE_FRONTEND_CALLBACK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: app-secrets
+                  key: GOOGLE_FRONTEND_CALLBACK_URL
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
